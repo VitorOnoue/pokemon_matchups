@@ -1,0 +1,32 @@
+{
+  "name": "pokemon_matchups",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "compile": "tsc && node ./dist/main.js",
+    "start": "nodemon --watch src --ignore dist --ext ts --exec \"npm run compile\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@types/cookie-session": "^2.0.49",
+    "@types/cors": "^2.8.19",
+    "@types/dotenv": "^6.1.1",
+    "@types/express": "^5.0.6",
+    "@types/jsonwebtoken": "^9.0.10",
+    "@types/mongoose": "^5.11.96",
+    "cookie-session": "^2.1.1",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
+    "express": "^5.2.1",
+    "jsonwebtoken": "^9.0.3",
+    "mongoose": "^8.20.4"
+  },
+  "type": "module",
+  "devDependencies": {
+    "@types/nodemon": "^1.19.6",
+    "nodemon": "^3.1.11"
+  }
+}
