@@ -1,10 +1,10 @@
 import * as battleService from '../services/battle.service.js';
 export const battle = async (req, res) => {
-    const { nameA, nameB } = req.params;
-    if (!nameA || !nameB) {
+    const { pokemonNameA, pokemonNameB } = req.params;
+    if (!pokemonNameA || !pokemonNameB) {
         throw new Error();
     }
-    const result = await battleService.startBattle(nameA, nameB);
+    const result = await battleService.startBattle(pokemonNameA, pokemonNameB);
     return res.json(result);
 };
 //# sourceMappingURL=battles.controller.js.map
