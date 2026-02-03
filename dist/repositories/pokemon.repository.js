@@ -1,10 +1,2 @@
-import Pokemon from '../models/pokemon.js';
-export const pokemonRepository = {
-    findById(id) {
-        return Pokemon.findById(id);
-    },
-    findByName(name) {
-        return Pokemon.findOne({ name: name.toLowerCase() });
-    }
-};
+export const pokemonRepository = {};
 //# sourceMappingURL=pokemon.repository.js.map

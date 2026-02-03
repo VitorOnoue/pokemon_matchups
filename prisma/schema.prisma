@@ -12,3 +12,88 @@ generator client {
 datasource db {
   provider = "postgresql"
 }
+
+enum MoveCategory {
+  PHYSICAL
+  SPECIAL
+  STATUS
+}
+
+model Pokemon {
+  // columns
+  id Int @id @default(autoincrement())
+  number Int @unique
+  name String @unique
+  hp Int
+  atk Int
+  spAtk Int @map("sp_attack")
+  defense Int @map("def")
+  spDefense Int @map("sp_def")
+  speed Int
+  
+  // relations
+  types PokemonType[]
+  moves PokemonMove[]
+
+  @@map("pokemons")
+}
+
+model Type {
+  // columns
+  id Int @id @default(autoincrement())
+  name String @unique
+
+  // relations
+  moves Move[]
+  pokemons PokemonType[]
+
+  // self-relations
+  weaknesses Type[] @relation("TypeWeaknesses")
+  weakTo Type[] @relation("TypeWeaknesses")
+  resistances Type[] @relation("TypeResistances")
+  resistantTo Type[] @relation("TypeResistances")
+
+  @@map("types")
+}
+
+model Move {
+  // columns
+  id Int @id @default(autoincrement())
+  name String
+  category MoveCategory
+  power Int?
+  accuracy Int?
+  pp Int
+
+  // relations
+  type Type @relation(fields: [typeId], references: [id])
+  typeId Int @map("type_id")
+
+  pokemons PokemonMove[]
+
+  @@map("moves")
+}
+
+model PokemonType {
+  pokemon Pokemon @relation(fields: [pokemonId], references: [id])
+  pokemonId Int @map("pokemon_id")
+
+  type Type @relation(fields: [typeId], references: [id])
+  typeId Int @map("type_id")
+
+  @@id([pokemonId, typeId])
+
+  @@map("pokemon_types")
+}
+
+model PokemonMove {
+  pokemon Pokemon @relation(fields: [pokemonId], references: [id])
+  pokemonId Int @map("pokemon_id")
+
+  move Move @relation(fields: [moveId], references: [id])
+  moveId Int @map("move_id")
+
+  @@id([pokemonId, moveId])
+
+  @@map("pokemon_moves")
+}
