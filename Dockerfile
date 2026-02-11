@@ -12,6 +12,6 @@ RUN npx prisma generate
 
 RUN npm run build
 
-CMD ["sh", "-c", "until npx prisma migrate deploy; do sleep 2; done && npm run start"]
+CMD ["npm", "run", "start"]
 
 EXPOSE 8080

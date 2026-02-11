@@ -7,6 +7,6 @@ export const findPokemonByName = async (name: string) => {
 }
 
 export const createPokemon = async (pokemon: CreatePokemonDTO) => {
-    await pokemonRepository.create(pokemon);
-    return;
+    const newPokemon = await pokemonRepository.create(pokemon);
+    return newPokemon;
 }
