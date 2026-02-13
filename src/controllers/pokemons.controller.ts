@@ -15,7 +15,7 @@ export const getPokemonByName = async (req: Request<GetPokemonParams>, res: Resp
 export const createNewPokemon = async (req: Request<{}, {}, CreatePokemonDTO>, res: Response) => {
     const newPokemon = req.body;
     const created = await pokemonService.createPokemon(newPokemon);
-    res.status(200).send(created);
+    res.status(200).json(created);
 }
 
 // model Pokemon {

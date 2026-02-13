@@ -1,5 +1,4 @@
 import { app } from "./app.js";
-import { prisma } from "./database/prisma.js";
 
 const PORT = 8080;
 
