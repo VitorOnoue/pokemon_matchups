@@ -8,9 +8,29 @@ export const findByName = async (name: string) => {
     return type;
 }
 
+export const findManyIdsByName = async (names: string[]) => {
+    const types = await prisma.type.findMany({
+        where: {
+            name: {
+                in: names
+            }
+        },
+        select: {
+            id: true
+        }
+    })
+    return types;
+}
+
 export const create = async (type: Prisma.TypeCreateInput) => {
     const newType = await prisma.move.create({
         data: type
     });
     return newType;
 }
+
+export const updateWeaknesses = async (weaknesses: ) => {
+
+}
+
+export const updateResistances

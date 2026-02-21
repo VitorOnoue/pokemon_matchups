@@ -1,8 +1,8 @@
 import express from 'express';
 
-import { battleRouter } from './routers/battles.routes.js';
-import { pokemonRouter } from './routers/pokemons.routes.js';
-import { typeRouter } from './routers/types.routes.js';
+import { battleRouter } from './routers/battle.routes.js';
+import { pokemonRouter } from './routers/pokemon.routes.js';
+import { typeRouter } from './routers/type.routes.js';
 
 const app = express();
 

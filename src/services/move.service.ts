@@ -9,7 +9,7 @@ export const createMove = async (dto: CreateMoveDTO) => {
     return newMove;
 }
 
-export const moveInputParser = async (dto: CreateMoveDTO): Prisma.MoveCreateInput => {
+export const moveInputParser = async (dto: CreateMoveDTO) => {
     const type = await typeRepository.findByName(dto.type);
     if (!type) {
         throw new Error("type doesnt exist");
