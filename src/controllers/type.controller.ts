@@ -1,12 +1,9 @@
 import { Request, Response } from 'express';
 import { CreateTypeDTO } from '../dto/create-type.dto.js';
-import { UpdateWeaknessesDTO } from '../dto/update-weaknesses-dto.js';
-import { UpdateResistancesDTO } from '../dto/update-resistances-dto.js';
+import { UpdateTypeDTO } from '../dto/update-type.dto.js';
 import * as typeService from '../services/type.service.js';
+import { UpdateTypeParams } from '../dto/update-type-params.dto.js';
 
-interface UpdateTypeParams {
-    typeName: string
-}
 
 export const findById = async () => {
     return;
@@ -18,16 +15,9 @@ export const createNewType = async (req: Request<{}, {}, CreateTypeDTO>, res: Re
     res.status(200).json(created);
 }
 
-export const updateTypeWeaknesses = async (req: Request<UpdateTypeParams, {}, UpdateWeaknessesDTO>, res: Response) => {
+export const updateType = async (req: Request<UpdateTypeParams, {}, UpdateTypeDTO>, res: Response) => {
     const type = req.params.typeName;
-    const weaknesses = req.body;
-    const updatedType = await typeService.updateWeaknesses(type, weaknesses);
-    res.status(200).json(updatedType);
-}
-
-export const updateTypeResistances = async (req: Request<UpdateTypeParams, {}, UpdateResistancesDTO>, res: Response) => {
-    const type = req.params.typeName;
-    const resistances = req.body;
-    const updatedType = await typeService.updateResistances(type, resistances);
+    const { weaknesses, resistances } = req.body;
+    const updatedType = await typeService.updateType(type, weaknesses, resistances);
     res.status(200).json(updatedType);
 }

@@ -1,6 +1,4 @@
 import { CreateTypeDTO } from "../dto/create-type.dto.js";
-import { UpdateWeaknessesDTO } from '../dto/update-weaknesses-dto.js';
-import { UpdateResistancesDTO } from '../dto/update-resistances-dto.js';
 import * as typeRepository from "../repositories/type.repository.js";
 import { Prisma } from "@prisma/client";
 
@@ -16,42 +14,39 @@ export const createTypeDTOMapper = (dto: CreateTypeDTO): Prisma.TypeCreateInput 
     }
 }
 
-export const updateWeaknesses = async (typeName: string, dto: UpdateWeaknessesDTO) => {
+export const updateType = async (typeName: string, weaknesses?: string[], resistances?: string[]) => {
     const typeByString = await typeRepository.findByName(typeName);
     if (!typeByString) {
-        throw new Error('corintia');
+        throw new Error('error');
     }
     const typeId = typeByString.id;
-    const weaknessesIds = (await typeRepository.findManyByName(dto.weaknesses)).map(type => type.id);
-    const weaknesses = updateWeaknessesDTOMapper(weaknessesIds);
-    const updatedType = await typeRepository.updateType(typeId, weaknesses);
+
+    let weaknessesIds: number[] | undefined;
+    if (weaknesses) {
+        weaknessesIds = (await typeRepository.findManyByName(weaknesses)).map(type => type.id);
+    }
+
+    let resistancesIds: number[] | undefined;
+    if (resistances) {
+        resistancesIds = (await typeRepository.findManyByName(resistances)).map(type => type.id);
+    }
+
+    const data = updateTypeMapper(weaknessesIds, resistancesIds);
+    const updatedType = await typeRepository.updateType(typeId, data);
     return updatedType;
 }
 
-export const updateWeaknessesDTOMapper = (typeIds: number[]): Prisma.TypeUpdateInput => {
-    return {
-        weaknesses: {
-            set: typeIds.map(id => ({ id }))
+export const updateTypeMapper = (weaknesses?: number[], resistances?: number[]): Prisma.TypeUpdateInput => {
+    const data: Prisma.TypeUpdateInput = {};
+    if (weaknesses !== undefined) {
+        data.weaknesses = {
+            set: weaknesses.map(id => ({ id }))
+        };
+    };
+    if (resistances !== undefined) {
+        data.resistances = {
+            set: resistances.map(id => ({ id }))
         }
     };
-};
-
-export const updateResistances = async (typeName: string, dto: UpdateResistancesDTO) => {
-    const typeByString = await typeRepository.findByName(typeName);
-    if (!typeByString) {
-        throw new Error('corintia');
-    }
-    const typeId = typeByString.id;
-    const resistancesIds = (await typeRepository.findManyByName(dto.resistances)).map(type => type.id);
-    const resistances = updateResistancesDTOMapper(resistancesIds);
-    const updatedType = await typeRepository.updateType(typeId, resistances);
-    return updatedType;
-}
-
-export const updateResistancesDTOMapper = (typeIds: number[]): Prisma.TypeUpdateInput => {
-    return {
-        resistances: {
-            set: typeIds.map(id => ({ id }))
-        }
-    };
+    return data;
 };

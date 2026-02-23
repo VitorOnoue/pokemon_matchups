@@ -7,7 +7,6 @@ router.get('/type/:typeName', typesController.findById);
 
 router.post('/type/new', typesController.createNewType);
 
-router.patch('/type/:typeName/weaknesses', typesController.updateTypeWeaknesses);
-router.patch('/type/:typeName/resistances', typesController.updateTypeResistances);
+router.patch('/type/:typeName', typesController.updateType);
 
 export { router as typeRouter };
