@@ -8,7 +8,7 @@ export const findByName = async (name: string) => {
     return type;
 }
 
-export const findManyIdsByName = async (names: string[]) => {
+export const findManyByName = async (names: string[]) => {
     const types = await prisma.type.findMany({
         where: {
             name: {
@@ -23,14 +23,16 @@ export const findManyIdsByName = async (names: string[]) => {
 }
 
 export const create = async (type: Prisma.TypeCreateInput) => {
-    const newType = await prisma.move.create({
+    const newType = await prisma.type.create({
         data: type
     });
     return newType;
 }
 
-export const updateWeaknesses = async (weaknesses: ) => {
-
+export const updateType = async (id: number, data: Prisma.TypeUpdateInput) => {
+    const updatedType = await prisma.type.update({
+        where: { id },
+        data
+    });
+    return updatedType;
 }
-
-export const updateResistances

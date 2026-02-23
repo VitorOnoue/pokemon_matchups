@@ -16,27 +16,42 @@ export const createTypeDTOMapper = (dto: CreateTypeDTO): Prisma.TypeCreateInput 
     }
 }
 
-export const updateWeaknesses = async (type: string, dto: UpdateWeaknessesDTO) => {
-    const weaknessesIds = (await typeRepository.findManyIdsByName(dto.weaknesses)).map(type => type.id);
+export const updateWeaknesses = async (typeName: string, dto: UpdateWeaknessesDTO) => {
+    const typeByString = await typeRepository.findByName(typeName);
+    if (!typeByString) {
+        throw new Error('corintia');
+    }
+    const typeId = typeByString.id;
+    const weaknessesIds = (await typeRepository.findManyByName(dto.weaknesses)).map(type => type.id);
     const weaknesses = updateWeaknessesDTOMapper(weaknessesIds);
-    const updateType = await typeRepository.updateWeaknesses(weaknesses);
+    const updatedType = await typeRepository.updateType(typeId, weaknesses);
+    return updatedType;
 }
 
-export const updateWeaknessesDTOMapper = (typeIds: number[]): Prisma.TypeUpdateInput => ({
-    weaknesses: {
-        set: typeIds.map(id => ({ id }))
-    }
-})
-
-export const updateResistances = async (type: string, dto: UpdateResistancesDTO) => {
-    const resistances = await updateResistancesDTOMapper(dto);
-    const updateType = await typeRepository.updateResistances(resistances);
-}
-
-
-
-export const updateResistancesDTOMapper = (dto: UpdateResistancesDTO): Prisma.TypeUpdateInput => {
+export const updateWeaknessesDTOMapper = (typeIds: number[]): Prisma.TypeUpdateInput => {
     return {
-        resistances: dto.resistances
+        weaknesses: {
+            set: typeIds.map(id => ({ id }))
+        }
+    };
+};
+
+export const updateResistances = async (typeName: string, dto: UpdateResistancesDTO) => {
+    const typeByString = await typeRepository.findByName(typeName);
+    if (!typeByString) {
+        throw new Error('corintia');
     }
+    const typeId = typeByString.id;
+    const resistancesIds = (await typeRepository.findManyByName(dto.resistances)).map(type => type.id);
+    const resistances = updateResistancesDTOMapper(resistancesIds);
+    const updatedType = await typeRepository.updateType(typeId, resistances);
+    return updatedType;
 }
+
+export const updateResistancesDTOMapper = (typeIds: number[]): Prisma.TypeUpdateInput => {
+    return {
+        resistances: {
+            set: typeIds.map(id => ({ id }))
+        }
+    };
+};

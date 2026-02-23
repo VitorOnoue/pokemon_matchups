@@ -19,14 +19,14 @@ export const createNewType = async (req: Request<{}, {}, CreateTypeDTO>, res: Re
 }
 
 export const updateTypeWeaknesses = async (req: Request<UpdateTypeParams, {}, UpdateWeaknessesDTO>, res: Response) => {
-    const type = req.params;
+    const type = req.params.typeName;
     const weaknesses = req.body;
     const updatedType = await typeService.updateWeaknesses(type, weaknesses);
     res.status(200).json(updatedType);
 }
 
 export const updateTypeResistances = async (req: Request<UpdateTypeParams, {}, UpdateResistancesDTO>, res: Response) => {
-    const type = req.params;
+    const type = req.params.typeName;
     const resistances = req.body;
     const updatedType = await typeService.updateResistances(type, resistances);
     res.status(200).json(updatedType);
