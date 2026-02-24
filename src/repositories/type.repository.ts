@@ -14,11 +14,8 @@ export const findManyByName = async (names: string[]) => {
             name: {
                 in: names
             }
-        },
-        select: {
-            id: true
         }
-    })
+    });
     return types;
 }
 
