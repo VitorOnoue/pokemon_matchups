@@ -6,16 +6,16 @@ interface GetPokemonParams {
     pokemonName: string;
 }
 
-export const getPokemonByName = async (req: Request<GetPokemonParams>, res: Response) => {
+export const getPokemonByNameController = async (req: Request<GetPokemonParams>, res: Response) => {
     const name = req.params.pokemonName;
     const pokemon = await pokemonService.findPokemonByName(name);
     res.status(200).json(pokemon);
 }
 
-export const createNewPokemon = async (req: Request<{}, {}, CreatePokemonDTO>, res: Response) => {
+export const createNewPokemonController = async (req: Request<{}, {}, CreatePokemonDTO>, res: Response) => {
     const newPokemon = req.body;
     const created = await pokemonService.createPokemon(newPokemon);
-    res.status(200).json(created);
+    res.status(201).json(created);
 }
 
 // model Pokemon {

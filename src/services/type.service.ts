@@ -1,4 +1,5 @@
 import { CreateTypeDTO } from "../dto/create-type.dto.js";
+import { NotFoundError } from "../errors/not-found-error.js";
 import * as typeRepository from "../repositories/type.repository.js";
 import { Prisma } from "@prisma/client";
 
@@ -17,7 +18,7 @@ export const createTypeDTOMapper = (dto: CreateTypeDTO): Prisma.TypeCreateInput 
 export const updateType = async (typeName: string, weaknesses?: string[], resistances?: string[]) => {
     const typeByString = await typeRepository.findByName(typeName);
     if (!typeByString) {
-        throw new Error('error');
+        throw new NotFoundError("type not found");
     }
     const typeId = typeByString.id;
 

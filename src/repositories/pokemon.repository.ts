@@ -1,5 +1,4 @@
 import { prisma } from "../database/prisma.js";
-import { CreatePokemonDTO } from "../dto/create-pokemon.dto.js";
 import { Prisma } from "@prisma/client";
 
 export const findByName = async (name: string) => {

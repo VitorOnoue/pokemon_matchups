@@ -9,13 +9,13 @@ export const findById = async () => {
     return;
 }
 
-export const createNewType = async (req: Request<{}, {}, CreateTypeDTO>, res: Response) => {
+export const createNewTypeController = async (req: Request<{}, {}, CreateTypeDTO>, res: Response) => {
     const newType = req.body;
     const created = await typeService.createType(newType);
     res.status(200).json(created);
 }
 
-export const updateType = async (req: Request<UpdateTypeParams, {}, UpdateTypeDTO>, res: Response) => {
+export const updateTypeController = async (req: Request<UpdateTypeParams, {}, UpdateTypeDTO>, res: Response) => {
     const type = req.params.typeName;
     const { weaknesses, resistances } = req.body;
     const updatedType = await typeService.updateType(type, weaknesses, resistances);
