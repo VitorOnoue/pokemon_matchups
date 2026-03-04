@@ -4,9 +4,14 @@ import { UpdateTypeDTO } from '../dto/update-type.dto.js';
 import * as typeService from '../services/type.service.js';
 import { UpdateTypeParams } from '../dto/update-type-params.dto.js';
 
+interface GetTypeParams {
+    typeName: string
+}
 
-export const findById = async () => {
-    return;
+export const getTypeByNameController = async (req: Request<GetTypeParams>, res: Response) => {
+    const name = req.params.typeName;
+    const type = await typeService.findTypeByName(name);
+    res.status(200).json(type);
 }
 
 export const createNewTypeController = async (req: Request<{}, {}, CreateTypeDTO>, res: Response) => {

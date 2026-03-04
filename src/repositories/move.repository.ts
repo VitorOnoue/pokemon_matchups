@@ -1,6 +1,13 @@
 import { prisma } from "../database/prisma.js";
 import { Prisma } from "@prisma/client";
 
+export const findByName = async (name: string) => {
+    const move = await prisma.move.findFirst({
+        where: { name }
+    })
+    return move;
+}
+
 export const findManyByName = async (names: string[]) => {
     const moves = await prisma.move.findMany({
         where: {

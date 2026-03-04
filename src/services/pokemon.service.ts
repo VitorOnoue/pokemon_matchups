@@ -3,11 +3,10 @@ import * as pokemonRepository from '../repositories/pokemon.repository.js';
 import * as typeRepository from '../repositories/type.repository.js';
 import * as moveRepository from '../repositories/move.repository.js';
 import { Prisma } from '@prisma/client';
-import { ValidationError } from '../errors/validation-error.js';
-import { findManyByNameValidated } from '../utils/validate-existing-by-name.js';
+import { findByNameValidated, findManyByNameValidated } from '../utils/validate-existing-by-name.js';
 
 export const findPokemonByName = async (name: string) => {
-    const pokemon = await pokemonRepository.findByName(name.toLowerCase().trim());
+    const pokemon = await findByNameValidated(name, pokemonRepository.findByName, "pokemon");
     return pokemon;
 }
 

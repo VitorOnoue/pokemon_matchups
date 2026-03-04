@@ -2,7 +2,7 @@ import { prisma } from "../database/prisma.js";
 import { Prisma } from "@prisma/client";
 
 export const findByName = async (name: string) => {
-    const pokemon = await prisma.pokemon.findUnique({
+    const pokemon = await prisma.pokemon.findFirst({
         where: { name }
     });
     return pokemon;

@@ -15,7 +15,7 @@ export async function findManyByNameValidated<T extends { name: string }>(names:
 }
 
 // same for a singular item by name
-type FindByName<T> = (name: string) => Promise<T>;
+type FindByName<T> = (name: string) => Promise<T | null>;
 
 export async function findByNameValidated<T extends {name: string}>(name: string, find: FindByName<T>, label: string): Promise<T> {
     const foundItem = await find(name);

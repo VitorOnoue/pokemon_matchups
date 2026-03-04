@@ -2,6 +2,12 @@ import { CreateTypeDTO } from "../dto/create-type.dto.js";
 import { NotFoundError } from "../errors/not-found-error.js";
 import * as typeRepository from "../repositories/type.repository.js";
 import { Prisma } from "@prisma/client";
+import { findByNameValidated } from "../utils/validate-existing-by-name.js";
+
+export const findTypeByName = async (name: string) => {
+    const type = await findByNameValidated(name, typeRepository.findByName, 'type');
+    return type;
+}
 
 export const createType = async (dto: CreateTypeDTO) => {
     const type = createTypeDTOMapper(dto);
@@ -25,6 +31,7 @@ export const updateType = async (typeName: string, weaknesses?: string[], resist
     let weaknessesIds: number[] | undefined;
     if (weaknesses) {
         weaknessesIds = (await typeRepository.findManyByName(weaknesses)).map(type => type.id);
+        if (weaknessesIds) {}
     }
 
     let resistancesIds: number[] | undefined;
