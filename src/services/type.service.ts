@@ -1,8 +1,8 @@
 import { CreateTypeDTO } from "../dto/create-type.dto.js";
 import { NotFoundError } from "../errors/not-found-error.js";
 import * as typeRepository from "../repositories/type.repository.js";
-import { Prisma } from "@prisma/client";
 import { findByNameValidated } from "../utils/validate-existing-by-name.js";
+import * as typeMapper from '../mappers/type.mapper.js';
 
 export const findTypeByName = async (name: string) => {
     const type = await findByNameValidated(name, typeRepository.findByName, 'type');
@@ -10,15 +10,9 @@ export const findTypeByName = async (name: string) => {
 }
 
 export const createType = async (dto: CreateTypeDTO) => {
-    const type = createTypeDTOMapper(dto);
+    const type = typeMapper.createTypeDTOMapper(dto);
     const newType = await typeRepository.create(type);
     return newType;
-}
-
-export const createTypeDTOMapper = (dto: CreateTypeDTO): Prisma.TypeCreateInput => {
-    return {
-        name: dto.name
-    }
 }
 
 export const updateType = async (typeName: string, weaknesses?: string[], resistances?: string[]) => {
@@ -39,22 +33,7 @@ export const updateType = async (typeName: string, weaknesses?: string[], resist
         resistancesIds = (await typeRepository.findManyByName(resistances)).map(type => type.id);
     }
 
-    const data = updateTypeMapper(weaknessesIds, resistancesIds);
+    const data = typeMapper.updateTypeMapper(weaknessesIds, resistancesIds);
     const updatedType = await typeRepository.updateType(typeId, data);
     return updatedType;
 }
-
-export const updateTypeMapper = (weaknesses?: number[], resistances?: number[]): Prisma.TypeUpdateInput => {
-    const data: Prisma.TypeUpdateInput = {};
-    if (weaknesses !== undefined) {
-        data.weaknesses = {
-            set: weaknesses.map(id => ({ id }))
-        };
-    };
-    if (resistances !== undefined) {
-        data.resistances = {
-            set: resistances.map(id => ({ id }))
-        }
-    };
-    return data;
-};
