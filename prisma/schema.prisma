@@ -58,7 +58,7 @@ model Type {
 model Move {
   // columns
   id Int @id @default(autoincrement())
-  name String
+  name String @unique
   category MoveCategory
   power Int?
   accuracy Int?

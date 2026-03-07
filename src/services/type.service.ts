@@ -10,8 +10,8 @@ export const findTypeByName = async (name: string) => {
 }
 
 export const createType = async (dto: CreateTypeDTO) => {
-    const type = typeMapper.createTypeDTOMapper(dto);
-    const newType = await typeRepository.create(type);
+    const createData = typeMapper.createTypeDTOMapper(dto);
+    const newType = await typeRepository.create(createData);
     return newType;
 }
 
@@ -33,7 +33,7 @@ export const updateType = async (typeName: string, weaknesses?: string[], resist
         resistancesIds = (await typeRepository.findManyByName(resistances)).map(type => type.id);
     }
 
-    const data = typeMapper.updateTypeMapper(weaknessesIds, resistancesIds);
-    const updatedType = await typeRepository.updateType(typeId, data);
+    const updateData = typeMapper.updateTypeMapper(weaknessesIds, resistancesIds);
+    const updatedType = await typeRepository.updateType(typeId, updateData);
     return updatedType;
 }

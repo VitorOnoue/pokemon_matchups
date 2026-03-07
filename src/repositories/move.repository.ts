@@ -25,3 +25,17 @@ export const create = async (move: Prisma.MoveCreateInput) => {
     });
     return newMove;
 }
+
+export const update = async (id: number, data: Prisma.MoveUpdateInput) => {
+    const move = await prisma.move.update({
+        where: { id },
+        data
+    })
+    return move;
+}
+
+export const remove = async (name: string) => {
+    await prisma.move.delete({
+        where: { name }
+    });
+}
