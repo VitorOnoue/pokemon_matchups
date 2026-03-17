@@ -1,9 +1,9 @@
 import * as moveRepository from '../repositories/move.repository.js';
 import * as typeRepository from '../repositories/type.repository.js';
-import { CreateMoveDTO } from '../dto/create-move.dto.js';
+import { CreateMoveDTO } from '../dto/move.dtos.js';
 import { findByNameValidated } from '../utils/validate-existing-by-name.js';
 import * as moveMapper from '../mappers/move.mapper.js';
-import { UpdateMoveDTO } from '../dto/update-move.dto.js';
+import * as moveDtos from '../dto/move.dtos.js';
 
 export const findMoveByName = async (name: string) => {
     const move = await findByNameValidated(name, moveRepository.findByName, 'move');
@@ -17,7 +17,7 @@ export const createMove = async (dto: CreateMoveDTO) => {
     return newMove;
 }
 
-export const updateMove = async (name: string, dto: UpdateMoveDTO) => {
+export const updateMove = async (name: string, dto: moveDtos.UpdateMoveDTO) => {
     const foundMove = await findByNameValidated(name, moveRepository.findByName, 'move');
     const foundMoveId = foundMove.id;
     let moveTypeId: number | undefined;

@@ -1,7 +1,7 @@
 import { Prisma } from "@prisma/client";
-import { CreateTypeDTO } from "../dto/create-type.dto.js";
+import * as typeDtos from "../dto/type.dtos.js";
 
-export const createTypeDTOMapper = (dto: CreateTypeDTO): Prisma.TypeCreateInput => {
+export const createTypeDTOMapper = (dto: typeDtos.CreateTypeDTO): Prisma.TypeCreateInput => {
     return {
         name: dto.name
     }

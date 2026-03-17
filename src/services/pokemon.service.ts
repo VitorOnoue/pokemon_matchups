@@ -1,5 +1,4 @@
-import { CreatePokemonDTO } from '../dto/create-pokemon.dto.js';
-import { UpdatePokemonDTO } from '../dto/update-pokemon.dto.js';
+import * as pokemonDtos from '../dto/pokemon.dtos.js';
 import * as pokemonRepository from '../repositories/pokemon.repository.js';
 import * as typeRepository from '../repositories/type.repository.js';
 import * as moveRepository from '../repositories/move.repository.js';
@@ -11,7 +10,7 @@ export const findPokemonByName = async (name: string) => {
     return pokemon;
 }
 
-export const createPokemon = async (dto: CreatePokemonDTO) => {
+export const createPokemon = async (dto: pokemonDtos.CreatePokemonDTO) => {
     const foundTypes = await findManyByNameValidated(dto.types, typeRepository.findManyByName, 'type');
     const typeIds = foundTypes.map(type => type.id);
 
@@ -23,7 +22,7 @@ export const createPokemon = async (dto: CreatePokemonDTO) => {
     return newPokemon;
 }
 
-export const updatePokemon = async (name: string, dto: UpdatePokemonDTO) => {
+export const updatePokemon = async (name: string, dto: pokemonDtos.UpdatePokemonDTO) => {
     let typeIds, moveIds: number[] | undefined;
 
     if (dto.types) {

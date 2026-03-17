@@ -1,8 +1,7 @@
 import { Prisma } from "@prisma/client";
-import { CreatePokemonDTO } from "../dto/create-pokemon.dto.js";
-import { UpdatePokemonDTO } from "../dto/update-pokemon.dto.js";
+import * as pokemonDtos from "../dto/pokemon.dtos.js";
 
-export const createPokemonDTOMapper = (dto: CreatePokemonDTO, typeIds: number[], moveIds: number[]): Prisma.PokemonCreateInput => {
+export const createPokemonDTOMapper = (dto: pokemonDtos.CreatePokemonDTO, typeIds: number[], moveIds: number[]): Prisma.PokemonCreateInput => {
     const data = {
         number: dto.number,
         name: dto.name,
@@ -30,7 +29,7 @@ export const createPokemonDTOMapper = (dto: CreatePokemonDTO, typeIds: number[],
     return data;
 }
 
-export const updatePokemonDTOMapper = (dto: UpdatePokemonDTO, typeIds?: number[], moveIds?: number[]): Prisma.PokemonUpdateInput => {
+export const updatePokemonDTOMapper = (dto: pokemonDtos.UpdatePokemonDTO, typeIds?: number[], moveIds?: number[]): Prisma.PokemonUpdateInput => {
     const data: any = {
         number: dto.number,
         name: dto.name,

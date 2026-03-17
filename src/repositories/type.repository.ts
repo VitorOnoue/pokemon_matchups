@@ -26,10 +26,16 @@ export const create = async (type: Prisma.TypeCreateInput) => {
     return newType;
 }
 
-export const updateType = async (id: number, data: Prisma.TypeUpdateInput) => {
+export const update = async (id: number, data: Prisma.TypeUpdateInput) => {
     const updatedType = await prisma.type.update({
         where: { id },
         data
     });
     return updatedType;
+}
+
+export const remove = async (name: string) => {
+    await prisma.type.delete({
+        where: { name }
+    });
 }

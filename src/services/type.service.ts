@@ -1,4 +1,4 @@
-import { CreateTypeDTO } from "../dto/create-type.dto.js";
+import { CreateTypeDTO } from "../dto/type.dtos.js";
 import { NotFoundError } from "../errors/not-found-error.js";
 import * as typeRepository from "../repositories/type.repository.js";
 import { findByNameValidated } from "../utils/validate-existing-by-name.js";
@@ -34,6 +34,10 @@ export const updateType = async (typeName: string, weaknesses?: string[], resist
     }
 
     const updateData = typeMapper.updateTypeMapper(weaknessesIds, resistancesIds);
-    const updatedType = await typeRepository.updateType(typeId, updateData);
+    const updatedType = await typeRepository.update(typeId, updateData);
     return updatedType;
+}
+
+export const deleteType = async (typeName: string) => {
+    await typeRepository.remove(typeName);
 }

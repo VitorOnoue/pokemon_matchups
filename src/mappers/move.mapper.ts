@@ -1,8 +1,7 @@
 import { Prisma } from "@prisma/client";
-import { CreateMoveDTO } from "../dto/create-move.dto.js";
-import { UpdateMoveDTO } from "../dto/update-move.dto.js";
+import * as moveDtos from '../dto/move.dtos.js';
 
-export const createMoveDTOMapper = (dto: CreateMoveDTO, typeId: number): Prisma.MoveCreateInput => {
+export const createMoveDTOMapper = (dto: moveDtos.CreateMoveDTO, typeId: number): Prisma.MoveCreateInput => {
     const data: any = {
         name: dto.name,
         category: dto.category,
@@ -16,7 +15,7 @@ export const createMoveDTOMapper = (dto: CreateMoveDTO, typeId: number): Prisma.
     return data;
 }
 
-export const updateMoveDTOMapper = (dto: UpdateMoveDTO, typeId?: number) => {
+export const updateMoveDTOMapper = (dto: moveDtos.UpdateMoveDTO, typeId?: number) => {
     const data: any = {
         name: dto.name,
         category: dto.category,

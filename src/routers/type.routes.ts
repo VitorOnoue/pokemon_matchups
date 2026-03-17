@@ -3,10 +3,9 @@ import * as typesController from '../controllers/type.controller.js';
 
 const router = Router();
 
-router.get('/type/:typeName', typesController.getTypeByNameController);
-router.post('/type/new', typesController.createNewTypeController);
-router.patch('/type/:typeName', typesController.updateTypeController);
-
-router.patch('/type/effectiveness/:typeName', typesController.);
+router.get('/:typeName', typesController.getTypeByNameController);
+router.post('/new', typesController.createNewTypeController);
+router.patch('/:typeName', typesController.updateTypeController);
+router.delete('/:typeName', typesController.deleteTypeController);
 
 export { router as typeRouter };

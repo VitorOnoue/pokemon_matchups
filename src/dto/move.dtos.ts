@@ -8,3 +8,12 @@ export interface CreateMoveDTO {
     pp: number
     type: string
 }
+
+export interface UpdateMoveDTO {
+    name?: string
+    category?: MoveCategory
+    power?: number
+    accuracy?: number
+    pp?: number
+    type?: string
+}
