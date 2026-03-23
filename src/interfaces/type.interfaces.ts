@@ -1,5 +1,4 @@
-import { Pokemon } from "@prisma/client"
-import { PokemonType } from "./pokemon.types.js"
+import { PokemonType } from "../types/pokemon.types.js"
 
 export interface GetTypeParams {
     typeName: PokemonType

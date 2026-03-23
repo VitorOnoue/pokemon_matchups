@@ -1,16 +1,10 @@
 import { Request, Response } from 'express';
 import * as battleService from '../services/battle.service.js';
+import { BattleParams } from '../interfaces/battle.interfaces.js';
 
-interface BattleParams {
-    pokemonNameA: string,
-    pokemonNameB: string
-}
 
-export const battle = async (req: Request<BattleParams>, res: Response) => {
+export const battleController = async (req: Request<BattleParams>, res: Response) => {
     const { pokemonNameA, pokemonNameB } = req.params;
-    if (!pokemonNameA || !pokemonNameB) {
-        throw new Error();
-    }
-    const result = await battleService.startBattle(pokemonNameA, pokemonNameB);
+    const result = await battleService.pokemonBattle(pokemonNameA, pokemonNameB);
     return res.json(result);
 }
