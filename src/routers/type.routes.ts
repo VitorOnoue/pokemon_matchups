@@ -4,6 +4,7 @@ import * as typesController from '../controllers/type.controller.js';
 const router = Router();
 
 router.get('/:typeName', typesController.getTypeByNameController);
+router.get('/', typesController.getAllTypesController);
 router.post('/new', typesController.createNewTypeController);
 router.patch('/:typeName', typesController.updateTypeController);
 router.delete('/:typeName', typesController.deleteTypeController);

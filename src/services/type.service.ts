@@ -9,6 +9,11 @@ export const findTypeByName = async (name: string) => {
     return type;
 }
 
+export const findAllTypes = async () => {
+    const types = await typeRepository.findAll();
+    return types;
+}
+
 export const createType = async (dto: CreateTypeDTO) => {
     const createData = typeMapper.createTypeDTOMapper(dto);
     const newType = await typeRepository.create(createData);

@@ -19,6 +19,11 @@ export const findManyByName = async (names: string[]) => {
     return types;
 }
 
+export const findAll = async () => {
+    const types = await prisma.type.findMany();
+    return types;
+}
+
 export const create = async (type: Prisma.TypeCreateInput) => {
     const newType = await prisma.type.create({
         data: type

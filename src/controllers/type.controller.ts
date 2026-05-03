@@ -10,6 +10,11 @@ export const getTypeByNameController = async (req: Request<typeInterfaces.GetTyp
     res.status(200).json(type);
 }
 
+export const getAllTypesController = async (req: Request, res: Response) => {
+    const types = await typeService.findAllTypes();
+    res.status(200).json(types);
+}
+
 export const createNewTypeController = async (req: Request<{}, {}, CreateTypeDTO>, res: Response) => {
     const newType = req.body;
     const created = await typeService.createType(newType);
